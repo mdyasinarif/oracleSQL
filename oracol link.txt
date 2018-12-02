@@ -2,4 +2,9 @@ http://127.0.0.1:8080/apex/f?p=4550:1:4394240479166769
 SQL> connect sys as sysdba
 Enter password:
 Connected.
+SQL> connect hr
+Enter password:
+Connected.
+SQL>
+
 SQL> alter user hr identified by hr ACCOUNT UNLOCK;

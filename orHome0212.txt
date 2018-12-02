@@ -1,0 +1,28 @@
+insert statement
+page 9-7> insert into DEPARTMENTS	(DEPARTMENT_ID, DEPARTMENT_NAME, MANAGER_ID, LOCATION_ID) values (70,'General Relations',100,171);
+page 9-8> insert into DEPARTMENTS	(DEPARTMENT_ID, DEPARTMENT_NAME) values (70,'Purchasing);
+page 9-8> insert into DEPARTMENTS	 values (100,'Finance', Null,Null);
+page 9-9> insert into EMPLOYEES ( EMPLOYEE_ID,FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+		values (100,'Steven','King','SKING','515.123.4567',sysdate,'AD_PRES',24000,Null,Null,90);
+page 9-10> insert to employees values (100,'Steven','King','SKING','515.123.4567', To_DATE('FEB 3,1999','MON DD,YYYY'),'AD_PRES',24000,Null,Null,90);
+page 9-11> insert into DEPARTMENTS(DEPARTMENT_ID, DEPARTMENT_NAME, LOCATION_ID)values (&DEPARTMENT_ID,'&DEPARTMENT_NAME', LOCATION_ID); 10,'Administration';1700;
+page 9-12 insert into sales_reps(id,name,salary,commission_pct)select employee_id,last_name,salary,commission_pct from employees where job_id like '%REP%';
+
+
+
+update  statement
+page 9-16> update  employees set DEPARTMENT_ID = 50 where employee_id= 113;
+			update  copy_emp set DEPARTMENT_ID = 110;
+page 9-17 > update employees 
+			set job_id = (select job_id from employees where employee_id = 205),
+				salary = (select salary from employees where employee_id=205),
+			where employee_id =113;
+			
+			
+deleting rows
+page 9-22> delete from DEPARTMENTS where DEPARTMENT_NAME = 'Finance';
+			delete from copy_emp;
+page 9-23> delete from employees where DEPARTMENT_ID = (select DEPARTMENT_ID from DEPARTMENTS where DEPARTMENT_NAME like '%Public%')
+Removing Table Structure
+page 9-24> truncate table table_name;
+			truncate table copy_emp;
