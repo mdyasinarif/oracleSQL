@@ -1,11 +1,12 @@
-insert statement
-page 9-7> insert into DEPARTMENTS	(DEPARTMENT_ID, DEPARTMENT_NAME, MANAGER_ID, LOCATION_ID) values (70,'General Relations',100,171);
-page 9-8> insert into DEPARTMENTS	(DEPARTMENT_ID, DEPARTMENT_NAME) values (70,'Purchasing);
+insert statement ( primary key value change korta hoba)
+page 9-7> insert into DEPARTMENTS	(DEPARTMENT_ID, DEPARTMENT_NAME, MANAGER_ID, LOCATION_ID) values (71,'General Relations',100,1700);
+page 9-8> insert into DEPARTMENTS	(DEPARTMENT_ID, DEPARTMENT_NAME) values (71,'Purchasing');
 page 9-8> insert into DEPARTMENTS	 values (100,'Finance', Null,Null);
 page 9-9> insert into EMPLOYEES ( EMPLOYEE_ID,FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
 		values (100,'Steven','King','SKING','515.123.4567',sysdate,'AD_PRES',24000,Null,Null,90);
 page 9-10> insert to employees values (100,'Steven','King','SKING','515.123.4567', To_DATE('FEB 3,1999','MON DD,YYYY'),'AD_PRES',24000,Null,Null,90);
-page 9-11> insert into DEPARTMENTS(DEPARTMENT_ID, DEPARTMENT_NAME, LOCATION_ID)values (&DEPARTMENT_ID,'&DEPARTMENT_NAME', LOCATION_ID); 10,'Administration';1700;
+page 9-11> insert into DEPARTMENTS(DEPARTMENT_ID, DEPARTMENT_NAME, LOCATION_ID)values (&DEPARTMENT_ID,'&DEPARTMENT_NAME', &LOCATION_ID); 10,Administration;1700;(value Drirect Input Ditas Hoba)
+
 page 9-12 insert into sales_reps(id,name,salary,commission_pct)select employee_id,last_name,salary,commission_pct from employees where job_id like '%REP%';
 
 
@@ -26,3 +27,25 @@ page 9-23> delete from employees where DEPARTMENT_ID = (select DEPARTMENT_ID fro
 Removing Table Structure
 page 9-24> truncate table table_name;
 			truncate table copy_emp;
+			
+			
+>>>> 5/12/2018  
+create table ////
+
+create table dhaka(id number(15) primary key, name varchar2(100) not null, mobile varchar2(15) unique, email varchar2(50) unique, income number(11,2) check (income > 19999) not null, regi_date date default sysdate, country varchar2(50) default 'Bangladesh');
+
+insert data into Dhaka ///
+insert into dhaka (id, name, mobile, email, income) values (2,'B', '+88167666764', 'arif@gmail.com',20500);
+
+
+read only /// data update no possibal
+
+alter table dhaka read only;
+
+
+read write; /// muste be interd after read only if data can be change
+alter table dhaka read write;
+
+
+clear screen
+ drop table dhaka;
