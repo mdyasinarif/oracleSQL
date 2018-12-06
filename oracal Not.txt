@@ -49,3 +49,71 @@ alter table dhaka read write;
 
 clear screen
  drop table dhaka;
+ 
+// viwe
+
+create view dha_viwe1 as select id, name,email from dhaka;
+ select sum(income) "T"
+ 
+11-12
+create or replace view empvu80
+(id_number, name, sal, department_id)
+as select employee_id, first_name || ' '|| last_name, salary, department_id
+from employees
+where department_id = 80;
+
+select * from empvu80;
+
+
+11-13
+
+create or replace view dept_sum_vu
+(name, minsal, maxsal, avgsal)
+as select d.department_name, min(e.salary), max(e.salary), round(avg(e.salary))
+from employees e join departments d
+on (e.department_id = d.department_id)
+group by d.department_name;
+
+select * from dept_sum_vu;
+
+drop view empvu80;
+
+select view_name from user_views;
+select table_name from user_tables;
+select sequence_name from user_sequences;
+select index_name from user_indexes;
+select synonym_name from user_synonyms;
+
+
+
+create sequence dha_seq 
+increment by 10
+start with 120
+maxvalue 5000
+nocache
+nocycle;
+
+insert into dhaka(id, name, email,salary) values (dha_seq.nextval,'AAA','yasin@gmai',21000); 
+// check asa ti 200000 nicha salary dajana na
+
+create table usa(id number(8) primary key, name varchar2(15));
+
+insert into usa(id, name) values(dha_seq.currval,'google');
+insert into usa(id, name) values(dha_seq.nextval,'google');
+
+create index emp_last_name_idx
+on employees(last_name);
+
+create synonym cus for customers;
+
+
+/// patice a-13
+
+6>
+select employee_id, last_name, job_id,hire_date stratdte from employees;
+7>
+select distinct job_id from employees;
+8>
+select employee_id Emp#, last_name, job_id,hire_date stratdte from employees;
+9>
+select last_name || ','|| ' ,' || job_id   employee_titel  from employees;
