@@ -117,3 +117,33 @@ select distinct job_id from employees;
 select employee_id Emp#, last_name, job_id,hire_date stratdte from employees;
 9>
 select last_name || ','|| ' ,' || job_id   employee_titel  from employees;
+
+A-22-11
+
+select employee_id, Last_name, salary, department_id from employees where manager_id = &mgr_id order by &order;
+
+A-28 3.5
+select initcap( last_name), length(last_name) 
+from employees 
+where last_name like '&start_letter%' 
+order by last_name;
+
+A-29 3.6
+
+select last_name, round(Months_Between(sysdate,hire_date)) months_work from employees order by months_work;
+
+A-29 3.6
+
+select last_name, lpad(salary,15,'$') salary from employees;
+
+A-29 3.7
+select rpad(last_name)|| ' ' || rpad (' ', salary/1000+1,'*') employees_and_their_sallarys from employees order by salary desc;
+
+A-29 3.8
+
+select last_name, trunc(Months_Between(sysdate,hire_date)/7) as Trnure from employees where department_id = 90 order by Trnure desc;
+
+A-36 4.1
+
+select last_name || ' earns ' || to_Char(salary, 'fm$99,999.00') || ' monthly but wants ' || to_Char(salary*3, 'fm$99,999.00') || ' ' "Dream SALARYS" from employees;
+
