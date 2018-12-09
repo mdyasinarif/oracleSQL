@@ -1,0 +1,60 @@
+/// permission to create session
+connect sys as sysdba
+password sys
+create user demo identified by demo;
+grant create session to demo;
+connect demo
+password demo
+
+
+/// permission to create table
+connect sys as sysdba
+password sys
+grant create table, create sequence, create procedure, create view to demo;
+
+alter user demo quota 500m on system;
+unlimited///
+grant unlimited  tablespace to demo;
+
+connect demo
+password demo
+
+create table test(id number(5) primary key, name varchar2(50));
+
+
+role
+connect sys as sysdba
+password sys
+create role chairman;
+grant unlimited  tablespace to chairman;
+create role md;
+grant unlimited  tablespace to md;
+grant create session, create table, create sequence, create procedure, create view to chairman;
+
+grant create session, create view to md;
+
+
+create user oli identified by oli;
+
+
+create user arif identified by arif;
+
+grant chairman to oli;
+grant select on test to arif;
+
+grant md to arif;
+
+connect arif;
+password arif;
+
+
+create table test(id number(5) primary key, name varchar2(50));
+create view test_view as select * from oli.test;
+
+
+Q idb inc has 5 employees among those there is a 1 super user of there database system
+ are 2 admine user & 2operator and their privilises as flows
+				super > user > create table, view, sequence, index
+				admin > user > create table
+				2operator > only view table
+				and create test table and insert 5 data using sequence
