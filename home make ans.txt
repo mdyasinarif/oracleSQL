@@ -1,0 +1,77 @@
+create role Man;
+create role sup;
+create role officer;
+
+create user a identified by a;
+grant Man to a;
+
+create user b identified by b;
+grant sup to b;
+
+create user c identified by c;
+grant officer to c;
+
+grant unlimited tablespace to a;
+grant create session, create table, create view, create sequence, create synonym to man;
+
+grant create session, create view to sup;
+
+grant create session to officer;
+
+Enter user-name: a
+Enter password:a
+Connected.
+
+create table dep(id number(5)primary key,dep_name varchar2(10)unique);
+
+create table con(id number(5)primary key,mobile number(16)unique,country varchar2(22) default 'BD' ); 
+
+create table emp(id number(5)primary key, emp_name varchar2(10), salary number(10,2) check (salary>=25000), joining_date date check(joining_date<'01-JAN-2000'),
+dep_id number(5) not null, con_id number(5) not null, foreign key (dep_id) references dep(id), foreign key (con_id) references emp(id) );
+
+alter table emp add constraint un_id unique(dep_id,con_id);
+
+create sequence dep_seq increment by 10  start with 10 nocache nocycle;
+
+create sequence con_seq increment by 5 start with 5 nocache nocycle;
+
+create sequence emp_seq increment by 1 start with 1 nocache nocycle;
+
+insert into dep (ID,DEP_NAME) values (dep_seq.nextval,'AAA');
+insert into dep values (dep_seq.nextval,'BBB');
+insert into dep values (dep_seq.nextval,'CCC');
+
+insert into con (ID,MOBILE) values (con_seq.nextval,'01676555764');
+insert into con  (ID,MOBILE) values (con_seq.nextval,'01676555765');
+insert into con  (ID,MOBILE) values (con_seq.nextval,'01676555766');
+
+SELECT REPLACE (DEP_NAME, 'AAA','IT') from dep;
+SELECT REPLACE (DEP_NAME, 'BBB','Sales') from dep;
+select replace (DEP_NAME,'CCC','Marketing') from dep;
+
+update dep set  DEP_NAME = 'IT' where id = 10;
+update dep set  DEP_NAME = 'Sales' where id = 20;
+update dep set  DEP_NAME = 'Marketing' where id = 30;
+
+insert into emp (ID,EMP_NAME,SALARY,JOINING_DATE,DEP_ID,CON_ID) 
+values (emp_seq.nextval,'AAA',25000,'01-JAN-1991',10,5);
+
+insert into emp  (ID,EMP_NAME,SALARY,JOINING_DATE,DEP_ID,CON_ID)
+values (emp_seq.nextval,'BBB',30000,'01-JAN-1992',20,10);
+insert into emp (ID,EMP_NAME,SALARY,JOINING_DATE,DEP_ID,CON_ID)
+values (emp_seq.nextval,'CCC',40000,'01-JAN-1993',30,15);
+
+grant select on dep to b;
+grant select on con to b;
+grant select on emp to b;
+
+grant create view on dep to b;
+
+create view emp_view as select e.EMP_NAME Name, 
+e.SALARY*12 Annual_salary, 
+d.DEP_NAME DEP, 
+c.MOBILE Contract, 
+c.COUNTRY COUNTRY 
+from a.emp e ,a.dep d, a.con c 
+where e.DEP_ID = d.id and e.CON_ID = c.id;
+

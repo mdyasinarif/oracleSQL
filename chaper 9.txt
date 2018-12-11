@@ -1,99 +1,82 @@
-connect sys as sysdba;
-password sys
-
-role create 
-
-create role superUser;
-create role admin;
-create role operator;
-
-user create
-
-create user yasin identified by yasin;
-create user aaarif identified by aarif;    /// ak ta a com asa password a
-create user sohan identified by sohan;
-create user mim identified by mim;
-create user mom identified by mom;
-
-grant dawa
-
-grant create session, create table, create view, create sequence to superUser;
-grant create session, create table to admin;
-grant create session to operator;
-
-grant superUser to yasin;
-grant unlimited  tablespace to yasin;
-
-
-grant admin to aaarif;
-grant unlimited  tablespace to aaarif;
-
-
-grant admin to sohan;
-grant unlimited  tablespace to sohan;
-
-
-
-grant operator to mim;
-
-
-grant operator to mom;
-
-
-
-connect yasin;
-password yasin
-create table test(id number(5) primary key, name varchar2(50), email varchar2(50) unique, salary number(38));
-
-///parmission dawar jonno 
-
-grant select on test to mim;
-grant select on test to mom;
-
-/// parmission delect 
-
-revoke select on test from mim;
-revoke select on test from mom;
-
-create sequence test_seq 
-increment by 10
-start with 100
-maxvalue 5000
-nocache
-nocycle;
-insert into test(id, name, email,salary) values (test_seq.nextval,'AAA','yasin@gmai',21000);
-insert into test values (test_seq.nextval,'BBB','aarif@gmai',22000);
-insert into test values (test_seq.nextval,'CCC','Sohan@gmai',23000);
-insert into test values (test_seq.nextval,'DDD','oli@gmai',24000);
-insert into test values (test_seq.nextval,'EEE','suvo@gmai',25000);
-
-
-connect aaarif;
-password aarif // password a 2 ta a
-
-create table Atest(id number(5) primary key, name varchar2(50), email varchar2(50) unique, salary number(38));
-
-connect sohan
-password sohan
-create table Stest(id number(5) primary key, name varchar2(50), email varchar2(50) unique, salary number(38));
-
-connect mim
-password mim
-select * from  yasin.test;
-
-connect mom
-password mom
-select * from  yasin.test;
-
-
-chapeter 9
 create table My_Employee (id number(4), last_name varchar2(25), first_name varchar2(25), userid varchar2(8), salary number(9,2) );
 desc My_Employee;
 insert into My_Employee values (1,'Pater','Ralph','rpatel',895);
 insert into My_Employee (id, last_name,first_name,userid,salary) values (2,'Dancs','Betty','bdancs',860);
 select * from My_Employee;
+insert into My_Employee values (&id,'&last_name','&first_name','&userid',&salary);
+insert into My_Employee values (&id,'&last_name','&first_name','&userid',&salary);
+insert into My_Employee values (&id,'&last_name','&first_name','&userid',&salary);
+select *from My_Employee;
+commit
+update My_Employee set last_name = 'Drexler' where id=3;
+update My_Employee set salary = 1000 where salary<9000;
+delete from My_Employee where last_name = 'Dancs'; 
+commit;
+select * from My_Employee;
+savepoint step_17;
+delete from My_Employee;
+select * from My_Employee;
+rollback to step_17;
+select * from My_Employee;
+commit;
+set echo off;
+set verify off;
+insert into My_Employee values (&p_id,'&&p_last_name','&&p_first_name', 
+lower(substr('&p_first_name',1,1) || substr('&p_last_name',1,7)),&p_salary);
+set echo on;
+set verify on;
+undefine p_first_name;
+undefine p_last_name;
+
+chapter 10
+connect hr
+passwored hr
+create table dept (id number(7)constraint deptment_id_pk primary key, name varchar2(25) );
+desc dept;
+insert into dept select department_id, department_name from departments;
+create table emp 
+(id number(7),
+last_name varchar2(25),
+first_name varchar2(25),
+dept_id number(7), 
+constraint emp_dept_id_fk foreign key (dept_id) references dept (id));
+create table employee2 as select employee_id, first_name, last_name, salary,department_id from employees;
+alter table employee2 read only;
+insert into employee2 values (34,'Grant','Marcie',5678,10);
+alter table employee2 read write;
+drop table employee2;
+
+
+chapter 11
+create or replace view employees_vu as select employee_id, last_name employee, department_id from employees;
+select * from employees_vu;
+select employee, department_id from employees_vu;
+create view dept50 as 
+select employee_id empno, last_name employee, department_id deptno 
+from employees 
+where department_id = 50 
+with check option constraint emp_dept_50;
+describe dept50 
+select * from dept50;
+update dept50 set deptno = 80 where employee = 'Matos';
 
 
 
 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
