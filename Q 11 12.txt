@@ -1,0 +1,6 @@
+create table emps(eid number(5),ename varchar2(30),salary number(5,2),hire_date date, address varchar2(50) );
+alter table emps add constraint  emp_id_pk primary key(eid) ;
+insert into emps  (eid,ename, salary, hire_date, address) values(&eid,&ename, &salary, &hire_date, &address);
+alter table emps add (phone number(16), job_titel varchar2(10));
+select ename, job_titel,salary, salary+(salary*.30) "Review Salary" from emps;
+select ename, salary from emps where salary = (select min(salary) from emps);

@@ -1,0 +1,44 @@
+create table sydney(syid number(5), fname varchar2(25), lname varchar2(25));
+create table sydney_backup as select * from sydney;
+create or replace trigger sydney_after_insert after insert on sydney
+for each row
+declare
+begin
+insert into sydney_backup values(:new.usaid,:new.fname, :new.lname);
+DBMS_OUTPUT.PUT_LINE('Data inserted successfully on sydney_backup table');
+End;
+/
+insert into sydney values (1,'mr', 'Minhaz');
+
+select * from sydney_backup;
+create or replace trigger sydney_after_insert
+
+
+
+show error trigger name
+
+
+create or replace trigger sydney_after_update after update on sydney
+for each row
+declare
+begin
+update sydney_backup
+set fname = :new.fname
+where syid = :old.syid;
+dbms_output.put_line('Recorde update seccessfully into sydney_backup table');
+end;
+/
+
+update sydney set fname = 'Md' where syid = 2;
+
+create or replace trigger sydney_after_delete after delete on sydney
+for each row
+declare
+begin
+delete from sydney_backup
+where syid = :old.syid;
+dbms_output.put_line('Delete seccessfully');
+end;
+/
+delete from sydney where syid = 1;
+select * from sydney_backup;
