@@ -1,0 +1,42 @@
+f.1.1
+select location_id,street_address,city,state_province,country_name
+from locations  , countries
+where locations.COUNTRY_ID = countries.COUNTRY_ID;
+
+f.1.2
+select e.last_name, e.department_id,d.department_name
+from employees e , departments d
+where e.department_id = d.department_id;
+
+f.1.3
+select e.last_name, e.job_id, e.department_id,d.department_name
+from employees e, departments d, locations l
+where e.department_id = d.department_id 
+and d.location_id = l.location_id
+and Lower(l.city) = 'toronto'; 
+
+f.1.4
+select w.last_name employee, w.employee_id Emp#, 
+m.last_name manager, m.employee_id Mag#
+from employees w, employees m
+where w.manager_id = m.employee_id;
+
+f.1.5
+select e1.department_id department , e1.last_name employee,
+e2.last_name colleacue
+from employees e1, employees e2
+where e1.department_id = e2.department_id
+and e1.employee_id <> e2.employee_id
+order dy 1,2,3;
+
+f1.8
+select e.last_name, e.hire_date
+from employees e, employees davies
+where davies.last_name = 'Davise'
+and davies.hire_date <e.hire_date;
+
+f1.9
+select w.last_name, w.hire_date, m.last_name,m.hire_date
+from employees w,employees m
+where w.manager_id = m.employee_id
+and w.hire_date < m.hire_date;

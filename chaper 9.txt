@@ -49,19 +49,38 @@ drop table employee2;
 
 chapter 11
 create or replace view employees_vu as select employee_id, last_name employee, department_id from employees;
+
 select * from employees_vu;
+
 select employee, department_id from employees_vu;
+
 create view dept50 as 
 select employee_id empno, last_name employee, department_id deptno 
 from employees 
 where department_id = 50 
 with check option constraint emp_dept_50;
+
 describe dept50 
+
 select * from dept50;
+
 update dept50 set deptno = 80 where employee = 'Matos';
 
+create sequence emp_id_seq
+increment by 10
+start with 200
+maxvalue 1000
+nocache
+nocycle;
 
+insert into emp  values(emp_id_seq.nextval,'Arif','Yasin',50);
 
+insert into emp  values(emp_id_seq.nextval,'Sohan','MD',90);
+drop sequence dept_id_seq;
+
+create index dept_name_idx on dept (name);
+
+create synonym d for dept;
 
 
 

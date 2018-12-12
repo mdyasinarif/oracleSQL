@@ -1,0 +1,44 @@
+
+1.	Create a table with eid, ename, salary, hire_date and address columns. 
+
+create table abc (id number(5), name varchar2(10), salary number(7,2),hire_date date default sysdate,address varchar2(22));
+
+2.	Set primary key on eid.
+
+alter table abc modify id primary key;
+
+3.	Insert five record using substitution variables.
+
+insert into &table values (1,'Yasin',25000,'02-Feb-2018','Dhaka');
+insert into  abc values(&id,'&name',&salary,'&hire_date','&address');
+
+4.	Add two columns named as phone, job_title.
+
+alter table abc add (phone number(16), job_title varchar2(22) );
+5.	Make a query with ename, job_title, salary and salary with 30% bonus.
+
+select name, job_title, salary, salary+(salary*.30) "Review Salary" from abc;
+
+6.	Make a query with ename, salary where salary is equal to minimum salary of employees.
+
+select name, salary from abc where salary = (select min(salary) from abc);
+
+7.	Update all job_title to manager.
+
+update abc set job_title = 'Manager';
+
+8.	Create a view.
+
+create or replace view abc_view as select name, job_title, salary, salary+(salary*.30) "Review Salary" from abc; 
+
+
+9.	Create a sequence
+
+create sequence abc_seq increment by 1 start with 6 nocache nocycle;
+insert into abc (id,'name',salary,'hire_date','address') values(abc_seq.nextval,'Suvo',26000,'28-Feb-2018','Dhaka');
+
+10.	Create an index.
+11.	Create a trigger
+Procedure:
+function with Paramiter
+function Total Employees
