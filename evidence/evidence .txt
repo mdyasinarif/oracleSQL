@@ -55,7 +55,7 @@ nocache
 nocycle;
 
 
-create or replace trigger emp_after_insert after insert on emp
+create or replace trigger emp_after_insert after insert on emp 
 for each row
 declare
 begin
