@@ -69,7 +69,8 @@ procedure
 		)
 		is
 		begin
-		update customer set id = p_id, name = p_name , mobile = p_mobile, country = p_country where id = p_id;
+		update customer set  name = p_name , mobile = p_mobile, country = p_country 
+		where id = p_id;
 		commit;
 		end;
 		/
