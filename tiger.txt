@@ -1,5 +1,6 @@
 create table sydney(syid number(5), fname varchar2(25), lname varchar2(25));
 create table sydney_backup as select * from sydney;
+
 create or replace trigger sydney_after_insert after insert on sydney
 for each row
 declare

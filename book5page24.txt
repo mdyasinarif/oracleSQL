@@ -1,0 +1,41 @@
+declare
+ num1 number :=95;
+ num2 number :=85;
+begin
+	dbms_output.put_line('Outer variable num1: ' || num1);
+	dbms_output.put_line('outer variable num2:' || num2);
+declare 
+	num1 number := 195;
+	num2 number := 185;
+begin
+	dbms_output.put_line('Inner variable num1: ' || num1);
+	dbms_output.put_line('Inner variable num2:' || num2);
+	end;
+end;
+/
+output show in browser
+
+create table employees(
+	id int not null,
+	name varchar(20) not null,
+	age int not null,
+	address char (25),
+	salary decimal (18,2),
+	primary key (id)
+);
+
+insert into customers values (2,'BBB',32,'Dhaka',2000.00);
+
+declare
+	c_id employees.id%type := 1;
+	c_name employees.name%type;
+	c_addr employees.address%type;
+	c_sal employees.salary%type;
+begin
+	select name, address, salary into c_name, c_addr, c_sal
+	from employees
+	where id = c_id;
+	dbms_output.put_line
+	('Customer '|| c_name ||' from '|| c_addr || ' earns '|| c_sal );
+	end;
+	/

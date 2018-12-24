@@ -4,3 +4,94 @@ insert into emps  (eid,ename, salary, hire_date, address) values(&eid,&ename, &s
 alter table emps add (phone number(16), job_titel varchar2(10));
 select ename, job_titel,salary, salary+(salary*.30) "Review Salary" from emps;
 select ename, salary from emps where salary = (select min(salary) from emps);
+
+create table
+
+create table customer ( id number (5), name varchar2(20) not null, mobile varchar2 (10) not null, country varchar2(11) default 'BD');
+
+create  backup table
+
+create table customer_backup ( id number (5), name varchar2(20) not null, mobile varchar2 (10) not null, country varchar2(11) default 'BD');
+
+>>> trigger insert
+
+create or replace trigger customer_after_insert after insert on customer
+for each row
+declare
+begin
+insert into customer_backup values (:new.id,:new.name,:new.mobile,:new.country);
+dbms_output.put_line('Insert successfyll');
+end;
+/
+ins
+>>> trigger update
+create or replace trigger customer_after_update after update on customer
+for each row
+declare
+begin
+update customer_backup set name = :new.id,mobile = :new.mobile, country= :new.country;
+dbms_output.put_line ('Update Successfylly');
+end;
+/
+
+
+procedure
+1.
+
+
+
+>>>>> create procedure
+ create or replace procedure insertCustomer(
+	p_id in customer.id%type,
+	p_name in customer.name%type,
+	p_mobile in customer.mobile%type,
+	p_country in customer.country%type
+		)
+		is
+		begin
+		insert into customer (id,name,mobile,country)
+		values(p_id,p_name,p_mobile,p_country);
+		commit;
+		end;
+		/
+3. data insert
+	begin 
+	insertCustomer (2,'BBB','01777809','BD');
+	end;
+	/
+	
+>>>> create	 update 
+4. create or replace procedure updateCustomer(
+	p_id in customer.id%type,
+	p_name in customer.name%type,
+	p_mobile in customer.mobile%type,
+	p_country in customer.country%type
+		)
+		is
+		begin
+		update customer set  name = p_name , mobile = p_mobile, country = p_country 
+		where id = p_id;
+		commit;
+		end;
+		/
+3. data insert
+	begin 
+	updateCustomer (3,'BBB','017654','IND');
+	end;
+	/
+	
+>>>> delete procedure 
+4. create or replace procedure deleteCustomer
+		(p_id in customer.id%type)
+		is
+		begin
+		delete customer where id = p_id;
+		commit;
+		end;
+		/
+3. data insert
+	begin 
+	deleteCustomer (2);
+	end;
+	/
+	
